@@ -53,16 +53,13 @@ export const useCarousel: ICarouselHook = props => {
     useEffect(() => service.initializeSliderPosition(track.current, scrollX, setPosition, carouselItems), [wrapperWidth])
     useEffect(() => service.checkTrackTransitionProperty(track.current), [position, ready])
 
-    useEffect(() => {
-
-    }, [])
-
     const slidesToShow = useMemo(() => {
         for (const {slidesToShow, point} of breakpoints) {
             if (wrapperWidth < point && items.length > slidesToShow) return slidesToShow;
         }
         return items.length > 6 ? 6 : items.length;
     }, [wrapperWidth])
+
     const itemWidth = useMemo(() => {
         return (wrapperWidth - (slidesToShow * 2 - 2) * itemMargin) / slidesToShow;
     }, [wrapperWidth, slidesToShow])
@@ -72,10 +69,11 @@ export const useCarousel: ICarouselHook = props => {
 
     //handlers
     const prevBtnHandler = (e: React.MouseEvent) => {
-        if (service.isExceedsLeftBorder(position)) return;
+        if (service.isExceedsLeftBorder(position, scrollX)) return;
         setDirection(Direction.left);
         setPosition(prevPos => prevPos + itemsToScroll * scrollX);
     }
+
     const nextBtnHandler = (e: React.MouseEvent) => {
         if (service.isExceedsRightBorder(scrollX, position, carouselItems, slidesToShow)) return;
         setDirection(Direction.right);
@@ -83,7 +81,7 @@ export const useCarousel: ICarouselHook = props => {
     }
     const onTouchStartHandler = (e: React.TouchEvent) => {
         setTouchStart(e.touches[0].clientX);
-        service.setStartPosition(position);
+        // service.setStartPosition(position);
     }
     const onTouchMoveHandler = (e: React.TouchEvent) => {
         const dx = e.touches[0].clientX - touchStart;
@@ -98,7 +96,7 @@ export const useCarousel: ICarouselHook = props => {
     //TODO refactoring
     const onTouchEndHandler = (e: React.TouchEvent) => {
         const dx = position % scrollX;
-        console.log(service.calculateCardsOffsetCount(scrollX, position));
+        // console.log(service.calculateCardsOffsetCount(scrollX, position));
         switch (direction) {
             case Direction.left:
                 setPosition(prevState => prevState - dx);
@@ -113,6 +111,7 @@ export const useCarousel: ICarouselHook = props => {
         setTouchStart(0);
 
     }
+
     //TODO refactoring
     const onTransitionEndHandler = (e: React.TransitionEvent) => {
         (e.target as HTMLDivElement).style.transition = 'none';
