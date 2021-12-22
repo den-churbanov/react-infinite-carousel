@@ -1,0 +1,57 @@
+$background: #ccc;
+$primary: darkblue;
+$white: white;
+
+$breakpoint-md: 768px;
+$breakpoint-sm: 576px;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  background: $background;
+}
+
+#container {
+  height: inherit;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-size: cover;
+}
+
+div.content-container {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 1.2rem 0;
+  position: relative;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: $breakpoint-sm) {
+    padding: 50px 0.4rem 0;
+  }
+
+  .carousel-external-container {
+    //background: $white;
+    width: 100vw;
+    padding: 0.4rem 1.6rem;
+    height: 350px;
+    @media screen and (max-width: $breakpoint-sm) {
+      padding: 0.5rem;
+    }
+  }
+
+}
+
+

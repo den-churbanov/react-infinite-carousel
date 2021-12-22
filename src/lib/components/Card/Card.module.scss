@@ -1,0 +1,33 @@
+
+.slider_card {
+  box-sizing: border-box;
+  background-color: white;
+  color: green;
+  border-radius: 12px;
+  border: 2px solid green;
+  height: 35vh;
+  font-weight: bold;
+  font-size: 50px;
+  text-align: center;
+  padding: 0.2rem;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+
+  @media screen and (max-width: 576px) {
+    height: 28vh;
+  }
+
+  &:first-child {
+    margin-left: 0 !important;
+  }
+
+  @media screen and (min-width: 1500px) {
+    padding: 0.6rem 0.3rem 0.3rem;
+  }
+}
