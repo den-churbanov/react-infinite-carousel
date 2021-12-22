@@ -4,7 +4,7 @@ import {ICardItem} from "./Carousel";
 class CarouselService {
     private ON_MOVE_OFFSET = 15
 
-    private start_position = -1;
+    // private start_position = -1;
 
     getInitialItems = (items: Array<ICardItem>) => {
         return [
@@ -16,15 +16,15 @@ class CarouselService {
 
     isExceedsRightBorder = (scrollX: number, position: number, items: any[], slidesToShow: number, dx: number = 0) => {
         if (dx) dx += this.ON_MOVE_OFFSET;
-        return Math.abs(position + dx) / scrollX >= items.length - slidesToShow;
+        return Math.abs(position + dx) >= (items.length - slidesToShow - 1) * scrollX;
     }
 
-    isExceedsLeftBorder = (position: number, dx: number = 0, offset: number = 0) => {
-        return position + dx > offset;
+    isExceedsLeftBorder = (position: number, scrollX: number = 0, dx: number = 0, offset: number = 0) => {
+        return Math.abs(position + dx) <= scrollX + offset;
     }
 
     isMoveExceedsBorders = (position: number, dx: number, scrollX: number, items: any[], slidesToShow: number) => {
-        return this.isExceedsLeftBorder(position, dx, this.ON_MOVE_OFFSET) ||
+        return this.isExceedsLeftBorder(position, scrollX, dx, this.ON_MOVE_OFFSET) ||
             this.isExceedsRightBorder(scrollX, position, items, slidesToShow, dx);
     }
 
@@ -55,14 +55,14 @@ class CarouselService {
         }
     }
 
-    setStartPosition(position: number){
-        this.start_position = position;
-    }
+    // setStartPosition(position: number){
+    //     this.start_position = position;
+    // }
 
-    calculateCardsOffsetCount(scrollX: number, endPosition: number){
-        console.log(this.start_position, endPosition, scrollX);
-        return Math.round(Math.abs(this.start_position - endPosition) / scrollX);
-    }
+    // calculateCardsOffsetCount(scrollX: number, endPosition: number){
+    //     console.log(this.start_position, endPosition, scrollX);
+    //     return Math.round(Math.abs(this.start_position - endPosition) / scrollX);
+    // }
 
 }
 
